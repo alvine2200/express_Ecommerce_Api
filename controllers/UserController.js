@@ -28,7 +28,12 @@ const register = async (req, res) => {
       .status(500)
       .json({ status: "fail", message: "Something went wrong, try again" });
   } catch (error) {
-    res.status(500).json({ status: "fail", message: error });
+    console.log(error);
+    res.status(500).json({
+      status: "fail",
+      message: "Request not send to database",
+      data: error,
+    });
   }
 };
 

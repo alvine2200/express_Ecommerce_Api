@@ -6,7 +6,7 @@ const rateLimit = require("express-rate-limiter");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const cors = require("cors");
-const auth = require("../middlewares/AuthController");
+const auth = require("./middlewares/AuthController");
 
 const express = require("express");
 const app = express();
@@ -22,7 +22,7 @@ app.use(cors());
 app.use(xss());
 app.use(helmet());
 app.use(express.static("/public"));
-app.use(express.json());
+app.use(express.json());  
 
 app.use("/api/v1", userRouter);
 
