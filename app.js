@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limiter");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const cors = require("cors");
+const auth = require("../middlewares/AuthController");
 
 const express = require("express");
 const app = express();
