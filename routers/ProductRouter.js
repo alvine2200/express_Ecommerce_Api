@@ -1,4 +1,4 @@
-const router = require("./UserRouter");
+const router = require("express").Router();
 const {
   createProduct,
   fetchProducts,
@@ -7,7 +7,7 @@ const {
   deleteProduct,
 } = require("../controllers/ProductController");
 
-router.route("/", fetchProducts);
+router.get("/", fetchProducts);
 router.post("/", createProduct);
 router.get("/:id", editProduct);
 router.patch("/:id", updateProduct);
