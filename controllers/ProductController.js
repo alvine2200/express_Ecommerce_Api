@@ -1,7 +1,36 @@
-const product = require("../models/ProductModel");
+const Product = require("../models/ProductModel");
 
 const createProduct = async (req, res) => {
-  res.send("Create Products Page");
+  try {
+    const prod = await Product.create({
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+      quantity: req.body.quantity,
+      category: req.body.category,
+      price: req.body.price,
+      size: req.body.size,
+      color: req.body.color,
+    });
+    if (!prod) {
+      return res.status(500).json({
+        status: "failed",
+        message: "Something went wrong, try again",
+      });
+    }
+    return res.status(201).json({
+      status: "success",
+      message: "Product added successfully",
+      data: prod,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "failed",
+      message: "Something went wrong try again",
+      error: error,
+    });
+  }
 };
 
 const fetchProducts = async (req, res) => {

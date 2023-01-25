@@ -1,7 +1,7 @@
 const User = require("../models/UserModel");
 const jwt = require("jsonwebtoken");
 
-const auth = async (req, res) => {
+const auth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer")) {
@@ -26,11 +26,8 @@ const auth = async (req, res) => {
     }
     const user = User.findById(payload.id).select("-password");
     req.user = user;
+    next();
     // req.user = { userId: payload.userId, name: payload.name };
-    return res.status(200).json({
-      status: "success",
-      message: "Logged in successfully",
-    });
   } catch (error) {
     return res.status(500).json({
       status: "fail",
