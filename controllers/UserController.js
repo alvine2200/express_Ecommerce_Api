@@ -1,5 +1,10 @@
 const User = require("../models/UserModel");
 
+const home = async (req, res) => {
+  const body = req.user;
+  console.log(body);
+};
+
 const register = async (req, res) => {
   try {
     let email = req.body.email;
@@ -71,4 +76,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+module.exports = { register, login, home };

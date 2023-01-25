@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const userRouter = require("./routers/UserRouter");
+const productRouter = require("./routers/ProductRouter");
 const connectDB = require("./database/connection");
 const rateLimit = require("express-rate-limiter");
 const helmet = require("helmet");
@@ -22,9 +23,10 @@ app.use(cors());
 app.use(xss());
 app.use(helmet());
 app.use(express.static("/public"));
-app.use(express.json());  
+app.use(express.json());
 
 app.use("/api/v1", userRouter);
+app.use("/api/v1/products", [auth], productRouter);
 
 const start = async (req, res) => {
   try {
