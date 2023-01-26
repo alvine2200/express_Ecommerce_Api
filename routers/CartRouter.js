@@ -8,7 +8,7 @@ const {
 } = require("../controllers/CartController");
 
 router.get("/", fetchCart);
-router.post("/add/:id", addToCart);
-router.delete("/remove/:id", removeFromCart);
+router.post("/add", addToCart);
+router.delete("/remove", removeFromCart);
 
 module.exports = router;
