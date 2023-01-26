@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const AdminMiddleware = require("../middlewares/AdminMiddleware");
 const {
   createProduct,
   fetchProducts,

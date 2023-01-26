@@ -10,6 +10,7 @@ const cors = require("cors");
 const auth = require("./middlewares/AuthMiddleware");
 
 const express = require("express");
+const AdminMiddleware = require("./middlewares/AdminMiddleware");
 const app = express();
 const port = process.env.PORT || 3000;
 

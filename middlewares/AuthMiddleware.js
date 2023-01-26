@@ -24,10 +24,11 @@ const auth = async (req, res, next) => {
         message: "Unauthorised to access,login first",
       });
     }
-    const user = User.findById(payload.id).select("-password");
-    req.user = user;
-    next();
-    // req.user = { userId: payload.userId, name: payload.name };
+    // const user = User.findById(payload.id).select("-password");
+    // req.user = user;
+    // next();
+    req.user = { userId: payload.userId, name: payload.name };
+    return next();
   } catch (error) {
     return res.status(500).json({
       status: "fail",
