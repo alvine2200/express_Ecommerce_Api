@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-let ItemSchema = new Schema(
+let ItemSchema = new mongoose.Schema(
   {
     productId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "Product",
     },
     quantity: {
@@ -27,8 +27,7 @@ module.exports = mongoose.model("item", ItemSchema);
 
 const CartSchema = new mongoose.Schema(
   {
-    products: [ItemSchema],
-    user_id: {
+    userId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
@@ -37,6 +36,7 @@ const CartSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
+    products: [ItemSchema],
   },
   { timestamps: true }
 );

@@ -9,6 +9,6 @@ const {
 
 router.get("/", fetchCart);
 router.post("/add", addToCart);
-router.delete("/remove", removeFromCart);
+router.delete("/remove/:id", removeFromCart);
 
 module.exports = router;
