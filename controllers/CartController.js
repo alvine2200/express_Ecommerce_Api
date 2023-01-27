@@ -29,7 +29,7 @@ const addToCart = async (req, res) => {
     if (!prod)
       return res
         .status(400)
-        .send({ status: false, message: "Product doesnt exitst" });
+        .send({ status: false, message: "Product doesnt exist" });
 
     //check the product quantity
     const quantity = prod.quantity;
@@ -118,9 +118,12 @@ const addToCart = async (req, res) => {
 
 const removeFromCart = async (req, res) => {
   const owner = req.user.userId;
-  const itemId = req.params.productId;
+  console.log(owner);
+  const itemId = req.params.id;
+  console.log(itemId);
   try {
-    let cart = await Cart.findOne({ owner });
+    let cart = await Cart.findOne({ userId: owner });
+    console.log(cart);
 
     const itemIndex = cart.products.findIndex(
       (item) => item.productId == itemId
@@ -128,23 +131,20 @@ const removeFromCart = async (req, res) => {
 
     if (itemIndex > -1) {
       let item = cart.products[itemIndex];
-      cart.total -= item.quantity * item.price;
-      if (cart.total < 0) {
-        cart.total = 0;
-      }
+      console.log(`cart item index : ${item}`);
+      // cart.total -= item.quantity * item.price;
+      // if (cart.total < 0) {
+      //   cart.total = 0;
+      // }
       cart.products.splice(itemIndex, 1);
-      cart.total = cart.products.reduce((acc, curr) => {
-        return res.status(200).json({
-          status: "success",
-          message: "product removed successfully",
-          data: acc + curr.quantity * curr.price,
-        });
-      }, 0);
       cart = await cart.save();
-
-      res.status(200).send(cart);
+      return res.status(200).json({
+        status: "success",
+        message: "product removed successfully",
+        data: [],
+      });
     } else {
-      res.status(404).send("item not found");
+      res.status(404).json({ status: "failed", message: "item not found" });
     }
   } catch (error) {
     console.log(error);
